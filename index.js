@@ -96,7 +96,7 @@ function dragDrop (elem, listeners) {
 
         var entry = item.webkitGetAsEntry()
         if (entry.isDirectory) {
-          mainDirectories.push(entry.fullPath)
+          mainDirectories.push({name:entry.name, file: e.dataTransfer.files[i]})
         }
       }
 
