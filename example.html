@@ -14,12 +14,14 @@
     <h1>Drag something onto this page</h1>
     <script src="dragdrop.min.js"></script>
     <script>
-      window.remove = DragDrop('body', function (files) {
+      window.remove = DragDrop('body', function (files, pos, directories) {
         var names = files.map(function (file) { return file.name })
 
         window.alert('got ' + files.length + ' files: ' + names.join(', '))
+        window.alert('got ' + directories.length + ' directories: ' + directories.join(', '))
         window.files = files
         console.log(files)
+        console.log(directories)
       })
     </script>
   </body>

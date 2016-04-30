@@ -80,11 +80,25 @@ function dragDrop (elem, listeners) {
       y: e.clientY
     }
 
+    var mainDirectories = []
+
     if (e.dataTransfer.items) {
       // Handle directories in Chrome using the proprietary FileSystem API
       var items = toArray(e.dataTransfer.items).filter(function (item) {
         return item.kind === 'file'
       })
+
+      for (var i = 0, item; item = e.dataTransfer.items[i]; ++i) {
+        // Skip this one if we didn't get a file.
+        if (item.kind !== 'file') {
+          continue;
+        }
+
+        var entry = item.webkitGetAsEntry()
+        if (entry.isDirectory) {
+          mainDirectories.push(entry.fullPath)
+        }
+      }
 
       if (items.length === 0) return
 
@@ -97,7 +111,7 @@ function dragDrop (elem, listeners) {
         // throw in production code, so the user does not need to use try-catch.
         if (err) throw err
         if (listeners.onDrop) {
-          listeners.onDrop(flatten(results), pos)
+          listeners.onDrop(flatten(results), pos, mainDirectories)
         }
       })
     } else {

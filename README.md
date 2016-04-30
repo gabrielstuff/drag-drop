@@ -34,9 +34,10 @@ npm install drag-drop
 ```js
 var dragDrop = require('drag-drop')
 
-dragDrop('#dropTarget', function (files, pos) {
+dragDrop('#dropTarget', function (files, pos, directories) {
   console.log('Here are the dropped files', files)
   console.log('Dropped at coordinates', pos.x, pos.y)
+  console.log('Here are the main dropped directories', directories)
 })
 ```
 
